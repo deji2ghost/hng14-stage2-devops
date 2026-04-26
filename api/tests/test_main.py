@@ -3,8 +3,8 @@ import fakeredis  # pretends to be Redis without needing a real server
 from fastapi.testclient import TestClient
 
 # We patch (replace) the real Redis with a fake one for testing
-from api.main import app
-import api.main as main
+import main
+from main import app
 
 main.r = fakeredis.FakeRedis()
 
