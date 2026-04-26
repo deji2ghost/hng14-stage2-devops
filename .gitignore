@@ -1,0 +1,23 @@
+# Never commit these
+.env
+*.env
+.env.local
+.env.production
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Node
+node_modules/
+npm-debug.log
+
+# Docker
+*.tar
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat

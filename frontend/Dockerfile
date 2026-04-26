@@ -1,15 +1,15 @@
 # ── Stage 1: Install dependencies ─────────────────────────────
-FROM node:20-slim AS builder
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
 # Copy package files first (caching trick — only re-installs if these change)
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm install --omit=dev
 # RUN npm ci --omit=dev
 
 # ── Stage 2: Final image ──────────────────────────────────────
-FROM node:20-slim
+FROM node:22-alpine
 
 WORKDIR /app
 
