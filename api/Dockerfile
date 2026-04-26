@@ -1,6 +1,6 @@
 # ── Stage 1: Builder ──────────────────────────────────────────
 # We use a full Python image to install dependencies
-FROM python:3.11-slim AS builder
+FROM python:3.11-alpine AS builder
 
 WORKDIR /app
 
