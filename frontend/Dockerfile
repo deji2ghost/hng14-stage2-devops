@@ -5,7 +5,7 @@ WORKDIR /app
 
 # Copy package files first (caching trick — only re-installs if these change)
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm install --omit=dev
 # RUN npm ci --omit=dev
 
 # ── Stage 2: Final image ──────────────────────────────────────
