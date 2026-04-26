@@ -10,7 +10,7 @@ COPY requirements.txt .
 
 # Install dependencies into a specific folder we can copy later
 # hadolint ignore=DL3013
-RUN pip install --upgrade pip setuptools wheel && \
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
   pip install --no-cache-dir --prefix=/install -r requirements.txt
 
 # ── Stage 2: Final image ──────────────────────────────────────
