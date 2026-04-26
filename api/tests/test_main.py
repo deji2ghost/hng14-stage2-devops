@@ -3,8 +3,8 @@ import fakeredis  # pretends to be Redis without needing a real server
 from fastapi.testclient import TestClient
 
 # We patch (replace) the real Redis with a fake one for testing
-from api.main import app
-import api.main as main
+import main
+from main import app
 
 main.r = fakeredis.FakeRedis()
 
@@ -20,7 +20,7 @@ def test_create_job_returns_job_id():
 
 
 def test_get_job_status_is_queued():
-    """Test that a newly created job has status 'queued'"""
+    """Test that a newly created job has status 'queued'""" 
     create_response = client.post("/jobs")
     job_id = create_response.json()["job_id"]
 
