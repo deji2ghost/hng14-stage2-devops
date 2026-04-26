@@ -1,5 +1,5 @@
 # ── Stage 1: Install dependencies ─────────────────────────────
-FROM node:20-slim AS builder
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ RUN npm ci --only=production
 # RUN npm ci --omit=dev
 
 # ── Stage 2: Final image ──────────────────────────────────────
-FROM node:20-slim
+FROM node:22-alpine
 
 WORKDIR /app
 
