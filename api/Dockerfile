@@ -9,7 +9,8 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install dependencies into a specific folder we can copy later
-RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+RUN pip install --upgrade pip setuptools wheel && \
+  pip install --no-cache-dir --prefix=/install -r requirements.txt
 
 # ── Stage 2: Final image ──────────────────────────────────────
 # Start fresh with a clean slim image — no build tools included
