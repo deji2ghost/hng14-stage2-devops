@@ -1,6 +1,6 @@
 # ── Stage 1: Builder ──────────────────────────────────────────
 # We use a full Python image to install dependencies
-FROM python:3.11-slim AS builder
+FROM python:3.11-alpine AS builder
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 
 # ── Stage 2: Final image ──────────────────────────────────────
 # Start fresh with a clean slim image — no build tools included
-FROM python:3.11-slim
+FROM python:3.11-alpine
 
 WORKDIR /app
 
@@ -25,7 +25,7 @@ COPY main.py .
 
 # Create a non-root user called "appuser" and switch to it
 # (Running as root inside a container is a security risk)
-RUN adduser --disabled-password --gecos "" appuser
+RUN adduser -D appuser
 USER appuser
 
 # Tell Docker this container listens on port 8000
