@@ -12,7 +12,7 @@ WORKDIR /app
 COPY --from=builder /install /usr/local
 COPY worker.py .
 
-RUN adduser -D appuser
+RUN addgroup -S appuser && adduser -S -G appuser appuser
 USER appuser
 
 # The worker doesn't serve HTTP, so health check pings Redis instead

@@ -27,7 +27,7 @@ COPY main.py .
 
 # Create a non-root user called "appuser" and switch to it
 # (Running as root inside a container is a security risk)
-RUN adduser -D appuser
+RUN addgroup -S appuser && adduser -S -G appuser appuser
 USER appuser
 
 # Tell Docker this container listens on port 8000

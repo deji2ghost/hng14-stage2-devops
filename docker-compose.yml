@@ -12,6 +12,7 @@ services:
     image: redis:7-alpine
     networks:
       - internal
+    restart: unless-stopped
     # ❌ No "ports:" here — Redis is NOT exposed to your host machine
     # Only other containers on the "internal" network can reach it
     healthcheck:
@@ -29,10 +30,10 @@ services:
     build: ./api
     networks:
       - internal
+    restart: unless-stopped
     environment:
-      # Values come from your .env file — nothing hardcoded here
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+      - REDIS_HOST=${REDIS_HOST}       # ← reads from .env file
+      - REDIS_PORT=${REDIS_PORT} 
     depends_on:
       redis:
         condition: service_healthy  # waits until Redis passes its healthcheck
@@ -51,9 +52,10 @@ services:
     build: ./worker
     networks:
       - internal
+    restart: unless-stopped
     environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+      - REDIS_HOST=${REDIS_HOST}       # ← reads from .env file
+      - REDIS_PORT=${REDIS_PORT} 
     depends_on:
       redis:
         condition: service_healthy
@@ -69,8 +71,9 @@ services:
       - internal
     ports:
       - "3000:3000"   # Only the frontend is exposed to the outside world
+    restart: unless-stopped
     environment:
-      - API_URL=http://api:8000
+      - API_URL=${API_URL}
     depends_on:
       api:
         condition: service_healthy
