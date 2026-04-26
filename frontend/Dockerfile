@@ -1,5 +1,5 @@
 # ── Stage 1: Install dependencies ─────────────────────────────
-FROM node:22-alpine AS builder
+FROM node:22 AS builder
 
 WORKDIR /app
 
@@ -21,7 +21,7 @@ COPY app.js .
 COPY views/ ./views/
 
 # Create non-root user
-RUN adduser --disabled-password --gecos "" appuser
+RUN addgroup -S appuser && adduser -S -G appuser appuser
 USER appuser
 
 EXPOSE 3000

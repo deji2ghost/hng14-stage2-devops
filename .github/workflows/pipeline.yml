@@ -12,8 +12,10 @@ jobs:
   # Check code style and formatting errors
   # ─────────────────────────────────────────────
   lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout code
     - uses: actions/checkout@v4
 
     - name: Set up Python
