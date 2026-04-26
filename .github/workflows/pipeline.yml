@@ -190,10 +190,24 @@ jobs:
       - name: Start full stack
         run: docker compose up -d --build
 
-      - name: Wait for stack to be healthy
+      - name: Debug containers
         run: |
-          echo "Waiting for services..."
-          sleep 20
+          docker compose ps
+          docker compose logs frontend
+
+      - name: Wait for frontend to be ready
+        run: |
+          echo "Waiting for frontend..."
+          for i in {1..20}; do
+            if curl -s http://localhost:3000 > /dev/null; then
+              echo "Frontend is ready"
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "Frontend failed to start"
+          docker compose logs
+          exit 1
 
       - name: Submit a job and poll until complete
         run: |
