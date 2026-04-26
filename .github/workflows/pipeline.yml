@@ -152,8 +152,7 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: localhost:5000/api:latest
-          format: sarif
-          output: trivy-api.sarif
+          format: table # 👈 change from sarif
           severity: CRITICAL
           exit-code: "1" # Fail pipeline on CRITICAL findings
 
